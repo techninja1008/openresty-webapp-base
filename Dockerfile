@@ -5,7 +5,7 @@ RUN /usr/local/openresty/luajit/bin/luarocks install lapis
 
 RUN mkdir /app
 
-ADD nginx.conf /app/
+ADD nginx.conf mime.types /app/
 ONBUILD ADD . /app/
 
 ENTRYPOINT /usr/local/openresty/bin/openresty -c /app/nginx.conf
