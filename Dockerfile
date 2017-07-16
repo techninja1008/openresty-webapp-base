@@ -10,7 +10,7 @@ RUN apt update && \
     apt purge --autoremove -y git && \
     mkdir /app/ && \
     cd /app/ && \
-    wget https://github.com/pygy/require.lua/blob/master/require.lua && \
+    wget https://raw.githubusercontent.com/pygy/require.lua/master/require.lua && \
     /usr/local/openresty/luajit/bin/luarocks install moonscript && \
     /usr/local/openresty/luajit/bin/luarocks install lapis && \
     rm /tmp/* -R
