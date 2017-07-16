@@ -17,4 +17,4 @@ RUN mkdir /app
 ADD nginx.conf mime.types /app/
 ONBUILD ADD . /app/
 
-ENTRYPOINT /usr/local/openresty/bin/openresty -c /app/nginx.conf
+ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-c", "/app/nginx.conf", "-g", "daemon off;"] 
