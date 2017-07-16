@@ -1,18 +1,19 @@
 FROM openresty/openresty:xenial
 
-# Various fixes to make lapis happy when installing
+# Various fixes to make lapis happy
 RUN apt update && \
-    apt install -y libssl-dev git && \
+    apt install -y libssl-dev git wget && \
     cd /tmp && \
     git clone https://github.com/openresty/lua-cjson && \
     cd lua-cjson && \
     luarocks make && \
-    apt purge --autoremove -y git
-
-RUN /usr/local/openresty/luajit/bin/luarocks install moonscript
-RUN /usr/local/openresty/luajit/bin/luarocks install lapis
-
-RUN mkdir /app
+    apt purge --autoremove -y git && \
+    mkdir /app/ && \
+    cd /app/ && \
+    wget https://github.com/pygy/require.lua/blob/master/require.lua && \
+    /usr/local/openresty/luajit/bin/luarocks install moonscript && \
+    /usr/local/openresty/luajit/bin/luarocks install lapis && \
+    rm /tmp/* -R
 
 ADD nginx.conf mime.types /app/
 ONBUILD ADD . /app/
